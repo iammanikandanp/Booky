@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booksy</title>
+    <style>
+        *{
+    margin: 0%;
+    padding: 0%;
+}
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.navbar{
+    background-color: #fd65fd;
+    padding: 10px;
+    border-radius: 25px;
+    margin-top: 10px;
+}
+/* book  create */
+.container{
+    padding: 40px;
+    margin-top: 20px;
+    
+}
+.book-container{
+    padding: 15px;
+    width: 25%;
+    background-color: #472147;
+    border-radius: 15px;
+    color: white;
+    display: inline-block;
+    vertical-align: top;
+}
+.book-container > h2{
+    color: #bc65f7;
+}
+.book-container > h5{
+    color: #6ba6dd;
+}
+
+.book-container > button{
+    background-color: #bc65f7;
+    color: antiquewhite;
+    height: 50px;
+    width: 100px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: none;
+}
+.add{
+    background-color: #fd65fd;
+    border-radius: 100%;
+    padding: 20px 30px;
+    border: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    margin-right: 20px;
+    font-size: 40px;
+
+}
+.popup-overlay{
+    background-color: lightgrey;
+    position: absolute;
+    z-index: 1;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    margin: 0%;
+    display: none;
+    
+}
+.popup-box{
+    background-color: #bc65f7;
+    width: 40%;
+    padding: 40px;
+    border-radius: 10px;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    z-index: 2;
+    display: none;
+}
+.popup-box > h2{
+    color: #45275a;
+}
+.popup-box  input{
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    margin: 5px;
+    padding: 10px;
+    font-size: 20px;
+    border-bottom: solid 2px black;
+
+}
+.popup-box textarea{
+    background-color: transparent;
+    width: 100%;
+    margin: 5px;
+    padding: 10px;
+    font-size: 20px;
+    border: solid 2px;
+
+}
+.popup-box button{
+    background-color: #5bccdb;
+    color: rgb(20, 20, 20);
+    height: 50px;
+    width: 100px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: none;
+    margin: 10px;
+}
+    </style>
+</head>
+<body>
+    <!-- create navbar -->
+    <div class="navbar">
+        <h1>BOOKSKY</h1>
+        
+    </div>
+    <!-- create book deatils -->
+    <div class="container">
+        <div class="book-container">
+            <h2>Rich Dad Poor Dad</h2>
+            <h5>Rabort</h5><hr>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit ea soluta impedit accusamus non sunt aperiam voluptas omnis repudiandae consequatur hic, delectus eaque. Nihil cumque doloremque, maxime consequuntur dolores blanditiis!</p>
+            <button onclick="deletebtn(event)">Delete</button>
+        </div>
+        
+    </div>
+    <!-- create popup  for click add btn -->
+    <div class="popup-overlay"></div>
+    <!-- create popup-box -->
+    <div class="popup-box">
+        <h2>ADD BOOK</h2><hr>
+        <form >
+            <input type="text" placeholder="Book Title" id="book-title-input">
+            <input type="text" placeholder="Book Author" id="book-Author">
+            <textarea placeholder="short-discription" id="short-discription" ></textarea>
+            <button id="add-book">ADD</button>
+            <button id="cancel-popup">CANCEL</button>
+
+        </form>
+    </div>
+    <button id="add-btn" class="add">+</button>
+
+    <script> 
+    // selecting add popup box and popup overlay
+var popupoverlay=document.querySelector(".popup-overlay");
+var popupbox=document.querySelector(".popup-box");
+var addbtn=document.getElementById("add-btn");
+
+addbtn.addEventListener("click",function(){
+    popupoverlay.style.display="block"
+    popupbox.style.display="block"
+})
+// cancel
+var cancelpopup=document.getElementById("cancel-popup")
+cancelpopup.addEventListener("click" , function(event){
+    event.preventDefault()
+    popupoverlay.style.display="none"
+    popupbox.style.display="none"
+})
+
+
+// add-book ,book-title-input,book-Author,short-discription
+var containers=document.querySelector(".container")
+// var bookcontainer=document.querySelector(".book-container")
+var booktitle=document.getElementById("book-title-input")
+var bookauthor=document.getElementById("book-Author")
+var shortdiscription=document.getElementById("short-discription")
+var addbook=document.getElementById("add-book")
+addbook.addEventListener("click" , function(event){
+    event.preventDefault()
+    var div=document.createElement("div")
+    div.setAttribute("class","book-container")
+    div.innerHTML=`<h2>${booktitle.value}</h2> 
+    <h5>${bookauthor.value}</h5>
+    <p>${shortdiscription.value}</p>
+    <button onclick="deletebtn(event)">Delete</button>`
+    containers.append(div)
+    popupoverlay.style.display="none"
+    popupbox.style.display="none"
+})
+
+// delete
+function deletebtn(event){
+    event.target.parentElement.remove()
+}
+
+    </script>
+</body>
+</html>
